@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - CodeIn Club</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Contact grid styling */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .contact-card {
+      background: var(--bg-hero);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      color: var(--white);
+      /* default transparent border */
+      border: 2px solid transparent;
+    }
+    /* Different border colors per card */
+    .contact-grid .contact-card:nth-child(1) { border-color: #2978b5; }
+    .contact-grid .contact-card:nth-child(2) { border-color: #4faaff; }
+    .contact-grid .contact-card:nth-child(3) { border-color: #ff9f1c; }
+    .contact-grid .contact-card:nth-child(4) { border-color: #2ec4b6; }
+    .contact-grid .contact-card:nth-child(5) { border-color: #e71d36; }
+    .contact-grid .contact-card:nth-child(6) { border-color: #8338ec; }
+    .contact-card h3 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+    .contact-card p {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+    }
+    .contact-card a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Logo" style="height: 60px;">
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#mission">Mission</a>
+        <a href="about.html">About</a>
+        <a href="join.html">Join Today</a>
+        <a href="contact.html">Contact</a>
+        <a href="qa.html">Q&A</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <h2>Contact Us</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>President</h3>
+        <p><strong>Alex Martinez</strong></p>
+        <p>Email: <a href="mailto:amartinez@mymdc.net">amartinez@mymdc.net</a></p>
+        <p>Phone: <a href="tel:+13055551234">(305) 555-1234</a></p>
+      </div>
+
+      <div class="contact-card">
+        <h3>Vice President</h3>
+        <p><strong>Taylor Nguyen</strong></p>
+        <p>Email: <a href="mailto:tnguyen@mymdc.net">tnguyen@mymdc.net</a></p>
+        <p>Phone: <a href="tel:+13055555678">(305) 555-5678</a></p>
+      </div>
+
+      <div class="contact-card">
+        <h3>Senior Member</h3>
+        <p><strong>Sarah Lee</strong></p>
+        <p>Email: <a href="mailto:slee@mymdc.net">slee@mymdc.net</a></p>
+        <p>Phone: <a href="tel:+13055559876">(305) 555-9876</a></p>
+      </div>
+
+      <div class="contact-card">
+        <h3>Senior Member</h3>
+        <p><strong>Ben Johnson</strong></p>
+        <p>Email: <a href="mailto:bjohnson@mymdc.net">bjohnson@mymdc.net</a></p>
+        <p>Phone: <a href="tel:+13055553421">(305) 555-3421</a></p>
+      </div>
+
+      <div class="contact-card">
+        <h3>Senior Member</h3>
+        <p><strong>Maria Gomez</strong></p>
+        <p>Email: <a href="mailto:mgomez@mymdc.net">mgomez@mymdc.net</a></p>
+        <p>Phone: <a href="tel:+13055557654">(305) 555-7654</a></p>
+      </div>
+
+      <div class="contact-card">
+        <h3>Treasurer</h3>
+        <p><strong>Jordan Smith</strong></p>
+        <p>Email: <a href="mailto:jsmith@mymdc.net">jsmith@mymdc.net</a></p>
+        <p>Phone: <a href="tel:+1305558765">(305) 555-8765</a></p>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

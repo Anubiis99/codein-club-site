@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - CodeIn Club</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Logo" style="height: 60px;" />
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#mission">Mission</a>
+        <a href="about.html">About</a>
+        <a href="join.html">Join Today</a>
+        <a href="contact.html">Contact</a>
+        <a href="qa.html">Q&A</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ABOUT SECTION -->
+  <section class="hero about-layout">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h2>About Us</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+      </div>
+      <div class="hero-image">
+        <img src="images/Coding-club.jpg" alt="About Image"
+             onerror="this.onerror=null; this.src='images/placeholder.png';" />
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section class="section">
+    <h2>Our Founders</h2>
+    <div class="gallery-wrapper">
+      <button class="gallery-arrow left">&#10094;</button>
+      <div class="gallery-track" id="galleryTrack">
+        <div class="gallery-card">
+          <img src="images/founder1.jpg" alt="Founder 1" />
+          <p>Jane Doe</p>
+        </div>
+        <div class="gallery-card">
+          <img src="images/founder2.jpg" alt="Founder 2" />
+          <p>John Smith</p>
+        </div>
+        <div class="gallery-card">
+          <img src="images/founder3.jpg" alt="Founder 3" />
+          <p>Alice Chen</p>
+        </div>
+        <!-- add more founder cards as needed -->
+      </div>
+      <button class="gallery-arrow right">&#10095;</button>
+    </div>
+  </section>
+
+  <script>
+    (function() {
+      const track    = document.getElementById('galleryTrack');
+      const images   = Array.from(track.children);
+      const prevBtn  = document.querySelector('.gallery-arrow.left');
+      const nextBtn  = document.querySelector('.gallery-arrow.right');
+      let   currentIndex = 0;
+
+      function updateGallery() {
+        // wrap index
+        currentIndex = (currentIndex + images.length) % images.length;
+        // clear & mark active
+        images.forEach(card => card.classList.remove('active'));
+        const card = images[currentIndex];
+        card.classList.add('active');
+        // center it
+        card.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+      }
+
+      prevBtn.addEventListener('click', () => {
+        currentIndex--;
+        updateGallery();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        currentIndex++;
+        updateGallery();
+      });
+
+      // initialize
+      window.addEventListener('load', updateGallery);
+    })();
+  </script>
+</body>
+</html>

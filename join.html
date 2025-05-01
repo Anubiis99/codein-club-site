@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join Today - CodeIn Club</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Simple form styling */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .form-group input {
+      width: 100%;
+      max-width: 400px;
+      padding: 0.75rem;
+      border: 1px solid #555;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .error {
+      color: #ff6b6b;
+      font-size: 0.9rem;
+      height: 1rem;
+      display: block;
+      margin-top: 0.25rem;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: var(--blue-hover);
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Logo" style="height: 60px;" />
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#mission">Mission</a>
+        <a href="about.html">About</a>
+        <a href="join.html">Join Today</a>
+        <a href="contact.html">Contact</a>
+        <a href="qa.html">Q&A</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <h2>Join Today</h2>
+    <form id="joinForm" novalidate>
+      <div class="form-group">
+        <label for="email">Student Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          pattern="^[A-Za-z0-9.\-]{1,35}@mymdc\.net$"
+          placeholder="Student.Email001@mymdc.net"
+        />
+        <span class="error" id="emailError"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="studentId">Student ID Number</label>
+        <input
+          type="text"
+          id="studentId"
+          name="studentId"
+          required
+          pattern="^\d{10}$"
+          placeholder="10-digit Student ID"
+        />
+        <span class="error" id="studentIdError"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          required
+          placeholder="Your First Name"
+        />
+        <span class="error" id="firstNameError"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          required
+          placeholder="Your Last Name"
+        />
+        <span class="error" id="lastNameError"></span>
+      </div>
+
+      <button type="submit" class="btn-primary">Submit Inquiry</button>
+    </form>
+  </section>
+
+  <script>
+    document.getElementById('joinForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Clear previous errors
+      ['emailError', 'studentIdError', 'firstNameError', 'lastNameError']
+        .forEach(id => document.getElementById(id).textContent = '');
+
+      const emailInput = document.getElementById('email');
+      const studentIdInput = document.getElementById('studentId');
+      const firstNameInput = document.getElementById('firstName');
+      const lastNameInput = document.getElementById('lastName');
+      let valid = true;
+
+      // Validate student email: alphanumeric, periods, dashes, up to 35 chars + @mymdc.net
+      const emailPattern = /^[A-Za-z0-9.\-]{1,35}@mymdc\.net$/;
+      if (!emailPattern.test(emailInput.value.trim())) {
+        document.getElementById('emailError').textContent = 'Enter a valid MDC email (student.email001@mymdc.net)';
+        valid = false;
+      }
+
+      // Validate student ID (10 digits)
+      const idPattern = /^\d{10}$/;
+      if (!idPattern.test(studentIdInput.value.trim())) {
+        document.getElementById('studentIdError').textContent = 'Enter a valid Student ID';
+        valid = false;
+      }
+
+      // Validate first name
+      if (firstNameInput.value.trim() === '') {
+        document.getElementById('firstNameError').textContent = 'First name is required';
+        valid = false;
+      }
+
+      // Validate last name
+      if (lastNameInput.value.trim() === '') {
+        document.getElementById('lastNameError').textContent = 'Last name is required';
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // Prepare data for future DB submission
+      const formData = {
+        email: emailInput.value.trim(),
+        studentId: studentIdInput.value.trim(),
+        firstName: firstNameInput.value.trim(),
+        lastName: lastNameInput.value.trim()
+      };
+
+      console.log('Form data ready for DB:', formData);
+      // TODO: send `formData` to your backend API here
+
+      alert('Thank you! Your inquiry has been received.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>

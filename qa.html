@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q&A - CodeIn Club</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .section { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    h2 { margin-bottom: 1rem; }
+    /* Search bar */
+    #searchBar {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #555;
+      border-radius: 4px;
+      background: var(--bg-hero);
+      color: var(--white);
+      /* lower from top to clear navbar */
+      margin-top: 1rem;
+    }
+    /* FAQ accordion */
+    .faq-item {
+      background: var(--bg-hero);
+      margin-bottom: 0.5rem;
+      border-radius: 4px;
+      overflow: hidden;
+      transition: background 0.3s, border 0.3s;
+    }
+    .faq-question {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s, border 0.3s;
+    }
+    .faq-answer {
+      display: none;
+      padding: 0 1rem 0.75rem;
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+    /* Style when expanded */
+    .faq-item.open .faq-question {
+      background: #1f1f1f; /* darker shade */
+      border: 2px solid #ffffff; /* white border */
+      border-radius: 4px;
+    }
+    /* Ticket form */
+    #ticketForm {
+      display: none;
+      margin-top: 1rem;
+    }
+    #ticketForm input, #ticketForm textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 0.75rem;
+      border: 1px solid #555;
+      border-radius: 4px;
+      background: var(--bg-dark);
+      color: var(--white);
+    }
+    #ticketForm button {
+      background: var(--blue);
+      color: var(--white);
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* Thread list */
+    .thread {
+      background: var(--bg-hero);
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      padding: 1rem;
+    }
+    .thread h4 {
+      margin: 0 0 0.5rem;
+    }
+    .thread p {
+      margin: 0.5rem 0;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: var(--blue-hover);
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo"><img src="images/logo.png" alt="Logo" style="height: 60px;"></a>
+      <nav class="nav-links">
+        <a href="index.html#mission">Mission</a>
+        <a href="about.html">About</a>
+        <a href="join.html">Join Today</a>
+        <a href="contact.html">Contact</a>
+        <a href="qa.html">Q&A</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Search Section -->
+  <section class="section">
+    <h2>Search Q&A</h2>
+    <input type="search" id="searchBar" placeholder="Search threads & FAQs...">
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" id="faqSection">
+    <h2>Frequently Asked Questions</h2>
+    <div id="faqs"></div>
+  </section>
+
+  <!-- Create Ticket -->
+  <section class="section">
+    <h2>Create a Ticket</h2>
+    <button id="newTicketBtn" class="btn-primary">New Ticket</button>
+    <form id="ticketForm">
+      <input type="text" id="ticketTitle" placeholder="Title" required>
+      <textarea id="ticketBody" rows="4" placeholder="Ask your question..." required></textarea>
+      <button type="submit" class="btn-primary">Submit</button>
+    </form>
+  </section>
+
+  <!-- Thread List -->
+  <section class="section" id="threadsSection">
+    <h2>Discussion Threads</h2>
+    <div id="threads"></div>
+  </section>
+
+  <script>
+    // Sample FAQ data
+    const faqData = [
+      { q: 'How do I join the club?', a: 'Fill out the Join Today form with your details and submit.' },
+      { q: 'When are meetings held?', a: 'We meet every Tuesday at 5 PM in room 204.' },
+      { q: 'Can I bring a friend?', a: 'Yes! Anyone interested in coding is welcome.' }
+    ];
+
+    // Load threads from localStorage or start empty
+    let threads = JSON.parse(localStorage.getItem('threads') || '[]');
+
+    // Render FAQs
+    function renderFAQs(filter = '') {
+      const container = document.getElementById('faqs');
+      container.innerHTML = '';
+      faqData.filter(item => {
+        const text = (item.q + ' ' + item.a).toLowerCase();
+        return text.includes(filter.toLowerCase());
+      }).forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'faq-item';
+        div.innerHTML = `
+          <div class="faq-question">${item.q}</div>
+          <div class="faq-answer">${item.a}</div>`;
+        div.querySelector('.faq-question').onclick = () => div.classList.toggle('open');
+        container.appendChild(div);
+      });
+    }
+
+    // Render Threads
+    function renderThreads(filter = '') {
+      const container = document.getElementById('threads');
+      container.innerHTML = '';
+      threads.filter(t => (t.title + ' ' + t.body).toLowerCase().includes(filter.toLowerCase()))
+        .forEach(t => {
+          const div = document.createElement('div');
+          div.className = 'thread';
+          div.innerHTML = `<h4>${t.title}</h4><p>${t.body}</p><small>${new Date(t.ts).toLocaleString()}</small>`;
+          container.appendChild(div);
+        });
+    }
+
+    // Search handler
+    document.getElementById('searchBar').addEventListener('input', (e) => {
+      const term = e.target.value.trim();
+      renderFAQs(term);
+      renderThreads(term);
+    });
+
+    // New ticket toggle
+    document.getElementById('newTicketBtn').onclick = () => {
+      document.getElementById('ticketForm').style.display = 'block';
+    };
+
+    // Submit ticket
+    document.getElementById('ticketForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('ticketTitle').value.trim();
+      const body  = document.getElementById('ticketBody').value.trim();
+      if (!title || !body) return;
+      threads.unshift({ title, body, ts: Date.now() });
+      localStorage.setItem('threads', JSON.stringify(threads));
+      document.getElementById('ticketForm').reset();
+      document.getElementById('ticketForm').style.display = 'none';
+      renderThreads();
+    });
+
+    // Initial render
+    renderFAQs();
+    renderThreads();
+  </script>
+</body>
+</html>
