@@ -13,8 +13,23 @@
       color: white;
       background: none;
       border: none;
+      z-index: 1001;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      width: 100%;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
     }
     @media (max-width: 960px) {
+      .menu-toggle {
+        display: block;
+      }
       .nav-links {
         display: none;
         flex-direction: column;
@@ -23,17 +38,19 @@
         top: 100%;
         left: 0;
         width: 100%;
-        z-index: 5;
-      }
-      .nav-links a {
-        padding: 1rem;
-        border-bottom: 1px solid #333;
+        z-index: 1000;
+        padding: 1rem 0;
       }
       .nav-links.active {
         display: flex;
       }
-      .menu-toggle {
-        display: block;
+      .nav-links a {
+        padding: 1rem;
+        border-bottom: 1px solid #333;
+        width: 100%;
+        text-align: center;
+        color: var(--white);
+        background: var(--bg-hero);
       }
     }
   </style>
@@ -85,8 +102,10 @@
   </section>
 
   <script>
-    document.getElementById('menuToggle').addEventListener('click', () => {
-      document.getElementById('navLinks').classList.toggle('active');
+    const toggle = document.getElementById('menuToggle');
+    const nav = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
     });
   </script>
 </body>
