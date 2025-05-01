@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>CodeIn Club</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
@@ -11,6 +11,8 @@
       font-size: 2rem;
       cursor: pointer;
       color: white;
+      background: none;
+      border: none;
     }
     @media (max-width: 960px) {
       .nav-links {
@@ -22,6 +24,10 @@
         left: 0;
         width: 100%;
         z-index: 5;
+      }
+      .nav-links a {
+        padding: 1rem;
+        border-bottom: 1px solid #333;
       }
       .nav-links.active {
         display: flex;
@@ -40,7 +46,7 @@
       <a href="index.html" class="logo">
         <img src="images/logo.png" alt="Club Logo" style="height: 60px;" />
       </a>
-      <div class="menu-toggle" id="menuToggle">☰</div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
       <nav class="nav-links" id="navLinks">
         <a href="#mission">Mission</a>
         <a href="about.html">About</a>
@@ -79,10 +85,9 @@
   </section>
 
   <script>
-    // Toggle nav on mobile
-    document.getElementById('menuToggle').onclick = () => {
+    document.getElementById('menuToggle').addEventListener('click', () => {
       document.getElementById('navLinks').classList.toggle('active');
-    };
+    });
   </script>
 </body>
 </html>
